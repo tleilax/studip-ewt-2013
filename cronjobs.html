@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Stud.IP 2.4: Cronjobs</title>
+
+        <meta name="description" content="Vorstellung und Einführung">
+        <meta name="author" content="Jan-Hendrik Willms">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Cronjobs in Stud.IP</h1>
+                    <h3>Vorstellung und Einführung</h3>
+                    <p>
+                        <small>
+                            Von <a href="mailto:tleilax+studip@gmail.com">Jan-Hendrik Willms</a>
+                            (Universität Oldenburg)<br>
+                        </small>
+                        <br>
+                        <small>
+                            Stud.IP-Entwicklertagung 2013
+                        </small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Cronjobs?</h2>
+                </section>
+                
+                <section>
+                    <p>
+                        &bdquo; Bezeichung für automatisierte Aufgaben in einem Unix/Linux-System, die zu bestimmten
+                        Zeiten wiederholt werden können. &rdquo;
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Anwendungsgebiete in Stud.IP</h2>
+                    <ul>
+                        <li>Versenden der täglichen Benachrichtigungsmails</li>
+                        <li>Garbage Collector (Cache, Logs)</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Aktuelle Situation (2.3)</h2>
+                    <ul>
+                        <li>Einzelne Skripte im <code>/cli</code>-Ordner</li>
+                        <li>Cronjobs müssen von Hand auf der Konsole (de)aktiviert werden</li>
+                        <li>Keine globale Verwaltung</li>
+                        <li>Kein einheitliches Logging</li>
+                        <li>Keine Unterstützung für Plugins</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Neue Situation (2.4)</h2>
+                    <ul>
+                        <li><em>&bdquo;One cronjob to rule them all&ldquo;</em></li>
+                        <li>Globale Verwaltung</li>
+                        <li>Einheitliches Logging</li>
+                        <li>Unterstützung für Plugins</li>
+                    </ul>
+                </section>
+            
+                <section>
+                    <h3><em>&bdquo;One cronjob to rule them all&ldquo;</em></h3>
+                    <ul>
+                        <li>
+                            Cronjobs werden von einem einzelnen Skript gesteuert:<br>
+                            <a href="https://develop.studip.de/trac/browser/trunk/cli/cronjob-worker.php">
+                                /cli/cronjob-worker.php
+                            </a>
+                        </li>
+                        <li>
+                            Einzelne Cronjobs können quasi beliebig platziert werden
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Globale Verwaltung</h2>
+                </section>
+            
+                <section>
+                    <h3>Aktivieren, Deaktivieren und Löschen von Cronjobs</h3>
+                    <img src="img/cronjobs-overview.png">
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Hinzufügen von Cronjobs</h3>
+                        <img src="img/cronjobs-new.png">
+                    </section>
+
+                    <section>
+                        <h3>Hinzufügen von Cronjobs</h3>
+                        <h4>Parameter</h4>
+                        <img src="img/cronjobs-parameters.png">
+                    </section>
+
+                    <section>
+                        <h3>Hinzufügen von Cronjobs</h3>
+                        <h4>Regelmässig</h4>
+                        <img src="img/cronjobs-schedule-regular.png">
+                    </section>
+
+                    <section>
+                        <h3>Hinzufügen von Cronjobs</h3>
+                        <h4>Einmalig</h4>
+                        <img src="img/cronjobs-schedule-once.png">
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Aktivieren, Deaktivieren und Löschen von Aufgaben</h3>
+                    <img src="img/cronjobs-tasks.png">
+                </section>
+
+                <section>
+                    <h2>Einheitliches Logging</h2>
+                </section>
+                
+                <section>
+                    <h3>Übersicht aller Logeinträge</h3>
+                    <img src="img/cronjobs-logs.png">
+                </section>
+
+                <section>
+                    <h3>Logs einsehen - Erfolgreich</h3>
+                    <img src="img/cronjobs-log-success.png">
+                </section>
+
+                <section>
+                    <h3>Logs einsehen - Fehlerhaft</h3>
+                    <img src="img/cronjobs-log-error.png">
+                </section>
+
+                <section>
+                    <h2>Technische Details</h2>
+                </section>
+
+                <section>
+                    <h3>Begriffsdefinition</h3>
+                    <ul>
+                        <li class="fragment">
+                            Ein <u><strong>Cronjob</strong></u> wird über den <u><strong>Scheduler</strong></u> (Planer)
+                            als <u><strong>Task</strong></u> (Aufgabe) im System registriert.
+                        </li>
+                        <li class="fragment">
+                            Einem einzelnen <u><strong>Task</strong></u> können beliebig viele <u><strong>Schedules</strong></u>
+                            (Ablaufpläne) zugeordnet werden.
+                        </li>
+                        <li class="fragment">
+                            Ein <strong>Schedule</strong> kann vom Typ <u><strong>regular</strong></u> (wiederholt)
+                            oder <u><strong>once</strong></u> (einmalig) sein.
+                        </li>
+                        <li class="fragment">
+                            Einem <strong>Schedule</strong> werden etwaige <u><strong>Parameter</strong></u> zur Steuerung
+                            der Ausführung des entsprechenden <strong>Tasks</strong> mitgegeben.
+                        </li>
+                        <li class="fragment">
+                            Einem <strong>Schedule</strong> können beliebig viele <u><strong>Log</strong></u>-Einträge
+                            zugeordnet werden.
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Funktionsweise</h3>
+                    <ul>
+                        <li class="fragment">
+                            Der Cronjob-Worker wird minütlich aufgerufen und prüft, ob
+                            zu diesem Zeitpunkt Aufgaben ausgeführt werden sollen.
+                        </li>
+                        <li class="fragment">
+                            Aufgaben werden chronologisch und nach Ihrer Priorität ausgeführt.
+                        </li>
+                        <li class="fragment">
+                            Für jede ausgeführte Aufgabe wird die Dauer, die erzeugten Ausgaben,
+                            das Ergebnis und im Fehlerfall die entsprechende Exception
+                            in den Logs protokolliert.
+                        </li>
+                        <li class="fragment">
+                            Bei fehlerhaften Ausführungen wird die gesamte Aufgabe deaktiviert und
+                            sämtliche Root-Admins werden über diesen Schritt informiert.
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Cronjob-Klassen</h3>
+                    <ul>
+                        <li>
+                            <a href="https://develop.studip.de/trac/browser/trunk/lib/classes/CronJob.class.php">Cronjob</a><br>
+                            <small>Abstrakte Basisklasse für einzelne Jobs/Aufgaben</small>
+                        </li>
+                        <li>
+                            <a href="https://develop.studip.de/trac/browser/trunk/lib/classes/CronjobScheduler.class.php">CronjobScheduler</a><br>
+                            <small>Planerklasse zum Steuern der Aufgaben</small>
+                        </li>
+                        <li>
+                            <a href="https://develop.studip.de/trac/browser/trunk/lib/models/CronjobTask.class.php">CronjobTask</a><br>
+                            <small>Datenbankmodell für Aufgaben</small>
+                        </li>
+                        <li>
+                            <a href="https://develop.studip.de/trac/browser/trunk/lib/models/CronjobSchedule.class.php">CronjobSchedule</a><br>
+                            <small>Datenbankmodell für Ausführungspläne</small>
+                        </li>
+                        <li>
+                            <a href="https://develop.studip.de/trac/browser/trunk/lib/models/CronjobLog.class.php">CronjobLog</a><br>
+                            <small>Datenbankmodell für Logeinträge</small>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Anatomie eines Cronjobs</h2>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Minimale Implementierung eines Cronjobs</h3>
+                        <pre><code class="php" contenteditable>&lt;?php
+class ExampleCronjob extends CronJob
+{
+    public function getName() {
+        return 'Example';
+    }
+
+    public function getDescription() {
+        return 'Example description';
+    }
+
+    public function execute($last_result, $parameters = array()) {
+        do_something();
+    }
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <p>
+                            Alle Cronjobs werden von der abstrakten Klasse Cronjob abgeleitet.
+                        </p>
+                        <br>
+                        <ul>
+                            <li>
+                                <code>getName()</code><br>
+                                <small>Aussagekräftiger Name</small>
+                            </li>
+                            <li>
+                                <code>getDescription()</code><br>
+                                <small>Anwenderfreundliche Beschreibung</small>
+                            </li>
+                            <li>
+                                <code>execute(<em>$last_result</em>, <em>$parameters</em>)</code><br>
+                                <small>Eigentliche Logik des Cronjobs</small>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Erweiterte Implementierung eines Cronjobs</h2>
+                        <pre><code class="php" contenteditable>&lt;?php
+class ExampleCronjob extends CronJob
+{
+    // ...
+
+    public static function getParameters() {
+        return array();
+    }
+
+    public function setUp() {
+    }
+
+    public function tearDown() {
+    }
+}</code></pre>
+                    </section>
+
+                    <section>
+                        <p>
+                            Die folgenden Methoden sind allesamt optional.
+                        </p>
+                        <br>
+                        <ul>
+                            <li>
+                                <code>getParameters()</code><br>
+                                <small>Definiert, welche Parameter unterstützt werden sollen.</small>
+                            </li>
+                            <li>
+                                <code>setUp()</code><br>
+                                <small>Etwaige Initialisierungen können in dieser Methode von der Hauptlogik getrennt werden.</small>
+                            </li>
+                            <li>
+                                <code>tearDown()</code><br>
+                                <small>Etwaige &bdquo;Abriss&ldquo;-Logik kann in dieser Methode von der Hauptlogik getrennt werden.</small>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h3 style="text-transform: none;"><code>execute()</code></h3>
+                    <pre><code class="php">public function execute($last_result, $parameters = array()) {
+    // ...
+    return $result;
+}</code></pre>
+                    <ul>
+                        <li>
+                            <code>$last_result</code><br>
+                            <small>
+                                Ergebnis der letzten Ausführung des Cronjobs.<br>
+                                Somit können Werte von einem Aufruf zum nächsten durchgeschleift werden.
+                            </small>
+                        </li>
+                        <li>
+                            <code>$parameters = array()</code><br>
+                            <small>Eingestellte Parameter zur Ausführung des Cronjobs</small>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h3 style="text-transform: none;"><code>getParameters()</code></h3>
+                        <pre><code class="php">public function getParameters() {
+    return array(
+        'verbose' => array(
+            'type'        => 'boolean',
+            'default'     => false,
+            'status'      => 'optional',
+            'description' => _('Sollen Ausgaben erzeugt werden'),
+        ),
+    );
+}</code></pre>
+                    </section>
+                    
+                    <section>
+                        <ul>
+                            <li>
+                                <code>type</code><br>
+                                <small>
+                                    Typ des Parameters. Gültige Angaben:
+                                    <ul>
+                                        <li>boolean</li>
+                                        <li>string = einzeiliger Text</li>
+                                        <li>text = mehrzeiliger Text</li>
+                                        <li>select</li>
+                                    </ul>
+                                </small>
+                            </li>
+                            <li>
+                                <code>default</code><br>
+                                <small>Default-Wert des Parameters.</small>
+                            </li>
+                            <li>
+                                <code>status</code><br>
+                                <small>Status des Parameters. Gültige Angaben: optional, mandatory</small>
+                            </li>
+                            <li>
+                                <code>description</code><br>
+                                <small>Anwenderfreundliche Beschreibung des Parameters</small>
+                            </li>
+                            <li>
+                                <code>values</code> (nur bei <em>type = select</em>)<br>
+                                <small>Array mit den Werten für die Selectbox</small>
+                            </li>
+                                
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Registrieren eines Cronjobs</h3>
+                    <pre><code class="php">&lt;php
+class CronjobMigration extends Migration {
+    function up() {
+        $job_file = 'lib/cronjobs/example_cronjob.php';
+        $task_id = CronjobScheduler::registerTask($job_file, true);
+
+        // Schedule job to run 1 minute from now
+        CronjobScheduler::scheduleOnce($task_id, strtotime('+1 minute'));
+
+        // Schedule job to run every day at 23:59
+        CronjobScheduler::scheduleRegular($task_id, 23, 59);
+    }
+}</code></pre>
+                </section>
+
+                <section>
+                    <h2>Offene Punkte</h2>
+                </section>
+
+                <section>
+                    <h3>Implementierung des nächsten Ausführungstermins ineffizient</h3>
+                    <ul>
+                        <li>
+                            Nächste Ausführung wird nach der aktuellen Ausführung berechnet, indem
+                            &bdquo;hochgezählt&ldquo; wird bis die Zeitbedingungen zutreffen.
+                        </li>
+                        <li>
+                            Alternative: Ein spezieller Cronjob berechnet um 23:50 immer die
+                            Ausführungen des nächsten Tages.
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Log-Mechanismus</h3>
+                    <ul>
+                        <li>
+                            Log-Mechanismus mit dem bereits in Stud.IP vorhandenen koppeln?
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Threading</h3>
+                    <ul>
+                        <li>
+                            Echtes Threading unterstützen?
+                        </li>
+                        <li>
+                            <a href="http://php.net/manual/de/book.pcntl.php">pcntl</a> vs
+                            <a href="http://pthreads.org/">pthreads</a>
+                        </li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Vielen Dank für die Aufmerksamkeit!</h2>
+                    <br><br>
+                    <h3>Fragen? Anmerkungen?</h3>
+                    <br><br>
+                    <small>
+                        Folien:
+                        <a href="http://bit.ly/studip-cronjobs">http://bit.ly/studip-cronjobs</a>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'linear',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+//                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
