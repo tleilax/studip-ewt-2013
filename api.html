@@ -53,16 +53,17 @@
                 <section>
                     <h2>Agenda</h2>
                     <ul>
-                        <li class="fragment">Aktueller Stand</li>
-                        <li class="fragment">
+                        <li>Aktueller Stand</li>
+                        <li>
                             Diskussion
                             <ul>
-                                <li>Authentifizierung</li>
+                                <li>Einsatzmöglichkeiten</li>
+                                <li>Autorisierung</li>
                                 <li>Rückgabeformate</li>
                                 <li>Routen</li>
                             </ul>
                         </li>
-                        <li class="fragment">
+                        <li>
                             Ausblick
                             <ul>
                                 <li>SimpleORMap</li>
@@ -77,8 +78,47 @@
                 </section>
 
                 <section>
+                    <h2>Aktueller Stand</h2>
+                    <h3>Ist</h3>
                     <ul>
-                        <li></li>
+                        <li>Lösung als Plugin</li>
+                        <li>Sehr nutzerzentriert</li>
+                        <li>Routen teilweise sehr spezifisch</li>
+                        <li>Keine bzw. kaum Pagination</li>
+                        <li>Ominöser &bdquo;complete&ldquo;-Modus</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>Aktueller Stand</h2>
+                        <h3>Soll</h3>
+                        <ul>
+                            <li>Einbau in den Kern über einen eigenen Dispatcher</li>
+                            <li>Generischer Aufbau, nicht primär nutzerzentriert</li>
+                            <li>Geplante Abbildung aller Ressourcen</li>
+                            <li>Einheitliche Pagination</li>
+                            <li>Bessere Discoverability</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h2>Discoverability</h2>
+                        <pre><code class="json">{
+    "user_id": "abc123"
+}</code></pre>
+                    versus
+                    <pre><code class="json">{
+    "user": "/users/abc123"
+}</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Aktueller Stand</h2>
+                    <h3>Erkannte Probleme</h3>
+                    <ul>
+                        <li>Einige Ressourcen fehlen Altersangaben</li>
                     </ul>
                 </section>
                 
@@ -87,9 +127,88 @@
                 </section>
                 
                 <section>
+                    <h2>Einsatzmöglichkeiten</h2>
+                    <ul>
+                        <li>Mobile Applikationen</li>
+                        <li>Externe Tools (Im-/Export-Tools oder CMS)</li>
+                        <li>Externe Dienste (bspw. Plugin-Marktplatz)</li>
+                        <li>AJAX</li>
+                        <li>... ?</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Autorisierung</h2>
+                    <ul>
+                        <li>OAuth 1.0</li>
+                        <li>Stud.IP Session</li>
+                        <li>HTTP Basic Authentication</li>
+                        <li>... ?</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Sicherheit</h2>
+                    <ul>
+                        <li>HTTPS
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Rückgabeformate</h2>
+                    <ul>
+                        <li>JSON</li>
+                        <li>XML?</li>
+                        <li><span style="color: #888">PHP !?</span></li>
+                        <li>... ?</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Routen</h2>
+                    <ul>
+                        <li>Ankündigungen</li>
+                        <li>Dateien</li>
+                        <li>Forum</li>
+                        <li>Kontakte / Kontaktgruppen</li>
+                        <li>Kurse (eines Nutzers)</li>
+                        <li>Nachrichten / -kommentare</li>
+                        <li>Nutzerdaten</li>
+                        <li>Termine <span style="color:red;">↯</span></li>
+                        <li>Wiki</li>
+                    </ul>
+                </section>
+                
+                <section>
                     <h2>Ausblick</h2>
                 </section>
+                
+                <section>
+                    <h2>SimpleORMap</h2>
+                    <ul>
+                        <li>Möglichkeit, Routen zu vereinheitlichen</li>
+                        <li><pre style="width: 100%;"><code class="php">$object->toJSON();
+$object->toXML();</code></pre></li>
+                    </ul>
+                </section>
 
+                <section>
+                    <h2>Caching</h2>
+                    <ul>
+                        <li>API-seitig sinnvoll?</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Vielen Dank für die Mitarbeit!</h2>
+                    <br><br>
+                    <h3>Bei weiterem Interesse</h3>
+                    <ul>
+                        <li>
+                            Studiengruppe: <a href="http://develop.studip.de/studip/seminar_main.php?auswahl=a43002e50cbbf5da9ca645ad3f315a11">Rest.IP-Entwicklung</a>
+                        </li>
+                    </ul>
+                </section>
             </div>
 
         </div>
