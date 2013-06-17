@@ -253,11 +253,11 @@
                         <pre><code class="php" contenteditable>&lt;?php
 class ExampleCronjob extends CronJob
 {
-    public function getName() {
+    public static function getName() {
         return 'Example';
     }
 
-    public function getDescription() {
+    public static function getDescription() {
         return 'Example description';
     }
 
